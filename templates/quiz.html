@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Philosophy Quiz{% endblock %}
+
+{% block content %}
+<div class="quiz-container">
+    <h2>Philosophy Quiz</h2>
+    <form method="POST" action="{{ url_for('quiz') }}">
+        {{ form.hidden_tag() }}
+        {% for question in form if question.name != 'csrf_token' and question.name != 'submit' %}
+            <div class="question">
+                <p>{{ question.label }}</p>
+                {% for option in question %}
+                    <div class="option">
+                        {{ option }}
+                        {{ option.label }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
